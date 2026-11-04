@@ -1,0 +1,6 @@
+{
+  "name": "Top Life - Purificadores de Água de Alta Performance",
+  "description": "Landing page moderna e sofisticada para purificadores de água Top Life com filtragem nanométrica, água alcalina e tecnologia de ponta.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
