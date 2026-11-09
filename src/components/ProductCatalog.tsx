@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { MessageCircle, Check, ArrowUpRight, X, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, X, Check, ChevronRight } from 'lucide-react';
 import { PURIFIER_MODELS, PRODUCT_CATEGORIES, createProductWhatsAppUrl } from '../data/purifiers';
 import { PurifierModel, ProductCategory } from '../types';
 import { soundManager } from '../utils/soundEffects';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const ProductCatalog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('Todos os produtos');
   const [selectedSpecModel, setSelectedSpecModel] = useState<PurifierModel | null>(null);
-  const [colorOverrides, setColorOverrides] = useState<Record<string, string>>({});
   const [modalActiveImage, setModalActiveImage] = useState<string | null>(null);
 
   const filteredModels =
@@ -20,49 +20,41 @@ export const ProductCatalog: React.FC = () => {
     setSelectedCategory(cat);
   };
 
-  const handleColorChange = (modelId: string, imgUrl?: string) => {
-    soundManager.playHudClick();
-    if (imgUrl) {
-      setColorOverrides((prev) => ({ ...prev, [modelId]: imgUrl }));
-    }
-  };
-
   const openSpecModal = (model: PurifierModel) => {
     soundManager.playHudClick();
     setSelectedSpecModel(model);
-    setModalActiveImage(colorOverrides[model.id] || model.image);
+    setModalActiveImage(model.image);
   };
 
   return (
-    <section id="modelos" className="relative py-16 sm:py-24 bg-white text-slate-900 overflow-hidden border-b border-sky-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sky-100 border border-sky-200 text-[#003B66] text-xs font-semibold tracking-wider uppercase mb-3 shadow-xs">
-            <span>CATÁLOGO OFICIAL TOP LIFE</span>
-          </div>
+    <section id="modelos" className="relative py-20 sm:py-28 bg-[#F4F9FD] text-slate-900 overflow-hidden border-b border-sky-100">
+      {/* Luz ambiente suave de fundo claro */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-sky-50/50 to-[#F4F9FD] pointer-events-none" />
 
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Título Principal */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-5xl font-black text-[#002D52] tracking-tight">
-            Purificadores, Refis e Garrafas
+            Purificadores | Refis | Garrafas
           </h2>
-          <p className="mt-3 text-slate-600 text-sm sm:text-base">
-            Selecione uma categoria para filtrar o catálogo completo com fotografias reais e fichas técnicas oficiais.
+          <p className="mt-3 text-slate-600 text-xs sm:text-sm font-normal">
+            Selecione uma categoria para filtrar os modelos com fotos originais e especificações de fábrica.
           </p>
         </div>
 
-        {/* 9 Categorias Conforme Master Prompt */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10 sm:mb-12">
+        {/* Sistema de Navegação / Categorias */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-12 sm:mb-16">
           {PRODUCT_CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat;
             return (
               <button
                 key={cat}
                 onClick={() => handleCategorySelect(cat)}
-                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer shadow-xs ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? 'bg-[#003B66] text-white font-bold shadow-md shadow-[#003B66]/20 border border-[#0077CC]'
-                    : 'bg-[#F4F9FD] text-slate-700 hover:text-[#005B9A] border border-sky-100 hover:bg-sky-50'
+                    ? 'bg-[#003B66] text-white shadow-md shadow-[#003B66]/25 border border-[#0077CC]'
+                    : 'bg-white text-slate-700 hover:text-[#005B9A] border border-sky-200 hover:bg-sky-50'
                 }`}
               >
                 {cat}
@@ -71,54 +63,43 @@ export const ProductCatalog: React.FC = () => {
           })}
         </div>
 
-        {/* Grid de Produtos - Carregamento Imediato Sem Delays */}
+        {/* Grid de Produtos: Fundo Claro, Imagem Ocupando Todo o Quadrado e Título Destacado */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
           {filteredModels.map((model, idx) => {
-            const displayImage = colorOverrides[model.id] || model.image;
             const whatsappUrl = createProductWhatsAppUrl(model.name);
 
             return (
               <div
                 key={model.id}
-                className="group relative rounded-3xl bg-white border border-sky-100 hover:border-[#0077CC] p-5 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
+                className="group relative rounded-3xl bg-white border border-sky-200/80 hover:border-[#0077CC] p-4 sm:p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  {/* Contêiner da Imagem com object-contain */}
-                  <div className="relative rounded-2xl overflow-hidden bg-[#F4F9FD] border border-sky-100/80 mb-4 h-52 sm:h-56 flex items-center justify-center p-3">
+                  {/* FOTOGRAFIA OCUPANDO TODO O QUADRADINHO */}
+                  <div className="relative rounded-2xl overflow-hidden bg-[#FAFCFF] border border-sky-100 mb-3.5 h-60 sm:h-64 w-full flex items-center justify-center p-2">
                     <img
-                      src={displayImage}
+                      src={model.image}
                       alt={model.name}
-                      loading={idx < 4 ? 'eager' : 'lazy'}
+                      loading="eager"
                       decoding="sync"
-                      referrerPolicy="no-referrer"
-                      className="max-h-full max-w-full object-contain select-none drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-contain select-none transition-transform duration-300 group-hover:scale-105"
                     />
-                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-white/95 border border-sky-100 text-[10px] font-bold text-[#003B66] uppercase shadow-xs">
+
+                    {/* Categoria Discreta */}
+                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-white/95 border border-sky-200 text-[10px] font-extrabold text-[#003B66] uppercase shadow-xs">
                       {model.category}
                     </div>
-
-                    {model.priceConfirmed && (
-                      <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-emerald-100 border border-emerald-200 text-[10px] font-bold text-emerald-800 uppercase shadow-xs">
-                        Preço Confirmado
-                      </div>
-                    )}
                   </div>
 
-                  {/* Seletor de Cores (se houver variantes) */}
+                  {/* Cores Disponíveis: Apenas Informação Visual Estática (NÃO CLICÁVEIS) */}
                   {model.colors && model.colors.length > 0 && (
-                    <div className="flex items-center space-x-1.5 mb-3">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase">Cores:</span>
-                      <div className="flex items-center space-x-1">
+                    <div className="mb-2 flex items-center space-x-2 text-[11px] text-slate-500">
+                      <span className="font-semibold text-slate-400">Cores:</span>
+                      <div className="flex items-center space-x-1.5 pointer-events-none select-none">
                         {model.colors.map((c) => (
-                          <button
+                          <span
                             key={c.name}
                             title={c.name}
-                            onClick={() => handleColorChange(model.id, c.image)}
-                            className={`w-4 h-4 rounded-full border transition-transform cursor-pointer ${
-                              colorOverrides[model.id] === c.image || (!colorOverrides[model.id] && model.colors![0].name === c.name)
-                                ? 'scale-125 border-[#003B66] ring-1 ring-[#0077CC]'
-                                : 'border-slate-300 hover:scale-110'
-                            }`}
+                            className="inline-block w-3.5 h-3.5 rounded-full border border-slate-300 shadow-xs"
                             style={{ backgroundColor: c.hex }}
                           />
                         ))}
@@ -126,18 +107,20 @@ export const ProductCatalog: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Nome e Tagline */}
-                  <h3 className="text-base sm:text-lg font-bold text-[#002D52] group-hover:text-[#0077CC] transition-colors leading-snug">
+                  {/* TÍTULO BASTANTE DESTACADO SEM DOMINAR O ESPAÇO */}
+                  <h3 className="text-lg sm:text-xl font-black text-[#002D52] group-hover:text-[#0077CC] transition-colors leading-tight">
                     {model.name}
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1 line-clamp-2 font-medium">
+
+                  {/* Tagline Reduzida */}
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed font-normal">
                     {model.tagline}
                   </p>
 
-                  {/* Destaques Técnicos Resumidos */}
-                  <div className="mt-3.5 space-y-1.5 border-t border-slate-100 pt-3">
-                    {model.features.slice(0, 3).map((ft, fIdx) => (
-                      <div key={fIdx} className="flex items-center space-x-1.5 text-xs font-medium text-slate-700">
+                  {/* Informações Técnicas Essenciais */}
+                  <div className="mt-3 space-y-1 border-t border-slate-100 pt-2.5">
+                    {model.features.slice(0, 2).map((ft, fIdx) => (
+                      <div key={fIdx} className="flex items-center space-x-1.5 text-xs text-slate-600 font-medium">
                         <Check className="w-3.5 h-3.5 text-[#0077CC] shrink-0" />
                         <span className="truncate">{ft}</span>
                       </div>
@@ -145,35 +128,37 @@ export const ProductCatalog: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Preço e Botões de Ação */}
-                <div className="mt-5 pt-3.5 border-t border-slate-100">
-                  <div className="flex items-baseline justify-between mb-3">
+                {/* Bloco de Valor e Ações */}
+                <div className="mt-4 pt-3 border-t border-slate-100 space-y-2.5">
+                  <div className="flex items-baseline justify-between">
                     <div>
-                      <span className="text-[10px] font-bold uppercase text-slate-400 block">
-                        {model.priceConfirmed ? 'Preço de Venda' : 'Disponibilidade'}
+                      <span className="text-[10px] font-semibold text-slate-400 uppercase block">
+                        Valor
                       </span>
-                      <span className={`font-black ${model.priceConfirmed ? 'text-xl text-[#002D52]' : 'text-sm text-[#005B9A]'}`}>
+                      <span className="font-black text-lg text-[#002D52]">
                         {model.price}
                       </span>
                     </div>
+
                     <button
                       onClick={() => openSpecModal(model)}
-                      className="text-xs text-[#0077CC] hover:text-[#003B66] flex items-center space-x-1 font-bold cursor-pointer"
+                      className="text-xs text-[#0077CC] hover:text-[#003B66] flex items-center space-x-1 font-bold cursor-pointer py-1 px-2 rounded-lg hover:bg-sky-50 transition-colors"
                     >
-                      <span>Ficha Técnica</span>
-                      <ArrowUpRight className="w-3 h-3" />
+                      <span>Ver detalhes</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
+                  {/* Botão Oficial: Falar com Especialista */}
                   <a
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundManager.playHudClick()}
-                    className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-xs hover:shadow-md flex items-center justify-center space-x-2 transition-all cursor-pointer"
+                    className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-xs hover:shadow-md flex items-center justify-center space-x-2 transition-all cursor-pointer transform hover:scale-[1.02]"
                   >
-                    <MessageCircle className="w-4 h-4 fill-white" />
-                    <span>Consultar no WhatsApp</span>
+                    <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
+                    <span>Falar com especialista</span>
                   </a>
                 </div>
               </div>
@@ -183,21 +168,21 @@ export const ProductCatalog: React.FC = () => {
 
       </div>
 
-      {/* Modal / Ficha Técnica Completa */}
+      {/* Modal de Detalhes Técnicos */}
       {selectedSpecModel && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#001830]/70 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white border border-sky-100 p-6 sm:p-8 shadow-2xl space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#001830]/75 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white border border-sky-100 p-6 sm:p-8 shadow-2xl text-slate-900 space-y-6">
             
             {/* Fechar modal */}
             <button
               onClick={() => setSelectedSpecModel(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2.5 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer"
               aria-label="Fechar"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Cabeçalho do modal */}
+            {/* Cabeçalho */}
             <div>
               <span className="text-xs font-bold text-[#0077CC] uppercase tracking-wider block mb-1">
                 {selectedSpecModel.category}
@@ -205,23 +190,34 @@ export const ProductCatalog: React.FC = () => {
               <h3 className="text-2xl sm:text-3xl font-black text-[#002D52]">
                 {selectedSpecModel.name}
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 {selectedSpecModel.tagline}
               </p>
             </div>
 
-            {/* Imagem Principal do Modal & Miniaturas */}
+            {/* Imagem Principal do Modal & Galeria de Fotos */}
             <div className="space-y-3">
-              <div className="rounded-2xl bg-[#F4F9FD] border border-sky-100 p-4 h-64 flex items-center justify-center">
+              <div className="rounded-2xl bg-[#F4F9FD] border border-sky-100 p-4 h-64 sm:h-72 flex items-center justify-center">
                 <img
                   src={modalActiveImage || selectedSpecModel.image}
                   alt={selectedSpecModel.name}
                   loading="eager"
                   decoding="sync"
-                  className="max-h-full max-w-full object-contain drop-shadow-sm select-none"
+                  className="max-h-full max-w-full object-contain select-none drop-shadow-sm"
                 />
               </div>
 
+              {/* Informação Estática de Cores (NÃO CLICÁVEL) */}
+              {selectedSpecModel.colors && selectedSpecModel.colors.length > 0 && (
+                <div className="p-3 rounded-xl bg-sky-50/70 border border-sky-100 text-xs text-slate-700 flex items-center justify-between">
+                  <span className="font-semibold text-slate-500">Cores disponíveis:</span>
+                  <span className="font-bold text-[#003B66]">
+                    {selectedSpecModel.colors.map((c) => c.name).join(', ')}
+                  </span>
+                </div>
+              )}
+
+              {/* Galeria de Fotos (Miniaturas daquele modelo) */}
               {selectedSpecModel.images.length > 1 && (
                 <div className="flex items-center space-x-2 overflow-x-auto pb-1">
                   {selectedSpecModel.images.map((img, idx) => (
@@ -241,15 +237,15 @@ export const ProductCatalog: React.FC = () => {
               )}
             </div>
 
-            {/* Descrição */}
+            {/* Descrição Oficial */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Descrição Oficial</h4>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Descrição</h4>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
                 {selectedSpecModel.description}
               </p>
             </div>
 
-            {/* Ficha Técnica Organizada */}
+            {/* Especificações Técnicas Oficiais */}
             <div className="space-y-2">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Especificações Técnicas</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -316,11 +312,11 @@ export const ProductCatalog: React.FC = () => {
               </div>
             </div>
 
-            {/* Preço e Botão WhatsApp */}
+            {/* Valor e Botão Falar com Especialista */}
             <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <span className="text-[10px] font-bold text-slate-400 uppercase block">
-                  {selectedSpecModel.priceConfirmed ? 'Preço de Venda Confirmado' : 'Valor'}
+                  Valor
                 </span>
                 <span className="text-2xl font-black text-[#002D52]">
                   {selectedSpecModel.price}
@@ -335,10 +331,10 @@ export const ProductCatalog: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => soundManager.playHudClick()}
-                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-md transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm tracking-wide shadow-md transition-all cursor-pointer transform hover:scale-105"
               >
-                <MessageCircle className="w-4 h-4 fill-white" />
-                <span>Pedir no WhatsApp</span>
+                <WhatsAppIcon className="w-4 h-4 fill-white" />
+                <span>Falar com especialista</span>
                 <ChevronRight className="w-4 h-4" />
               </a>
             </div>

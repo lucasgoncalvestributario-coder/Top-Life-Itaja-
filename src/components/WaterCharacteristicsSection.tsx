@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Droplet, Snowflake, Zap, CheckCircle2, ShieldCheck, MessageCircle, ArrowRight } from 'lucide-react';
+import { Droplet, Snowflake, Zap, CheckCircle2, ShieldCheck, MessageCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/soundEffects';
 import { createWhatsAppUrl } from '../data/purifiers';
 
@@ -17,31 +17,37 @@ interface WaterTypeConfig {
   shortLabel: string;
   icon: React.FC<{ className?: string }>;
   tagline: string;
+  badgeColor: string;
+  glowColor: string;
+  gradient: string;
   features: WaterFeatureDetail[];
 }
 
 const WATER_OPTIONS: WaterTypeConfig[] = [
   {
     id: 'alcalina',
-    name: 'Água Alcalina',
+    name: 'Água Alcalina Ionizada',
     shortLabel: 'pH 8,5 a 9,5',
     icon: Droplet,
-    tagline: 'Equilíbrio mineral e alcalinização contínua para o dia a dia',
+    tagline: 'Equilíbrio mineral e alcalinização contínua para o organismo',
+    badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40',
+    glowColor: 'rgba(0, 240, 255, 0.4)',
+    gradient: 'from-cyan-500/20 via-sky-500/10 to-transparent',
     features: [
       {
         title: 'Faixa de pH Alcalino 8,5 a 9,5',
         badge: 'pH Balanceado',
-        description: 'Estabilização do pH que neutraliza a acidez comum da água tratada convencional através de leito mineral natural.',
+        description: 'Estabilização contínua do pH que neutraliza a acidez comum da água tratada convencional através de leito mineral natural.',
       },
       {
         title: 'Elemento Mineral Zeolife',
         badge: 'Filtragem Mineral',
-        description: 'Mídia filtrante com elemento mineral Zeolife e carvão ativado de casca de coco impregnado com prata coloidal.',
+        description: 'Mídia filtrante com elemento mineral Zeolife e carvão ativado vegetal impregnado com prata coloidal.',
       },
       {
         title: 'Redução Superior a 75% do Cloro',
         badge: 'Pureza Comprovada',
-        description: 'Retenção profunda de cloro livre, sabores e odores desagradáveis da rede de abastecimento público.',
+        description: 'Retenção profunda de cloro livre, sabores químicos e odores desagradáveis da rede de abastecimento público.',
       },
       {
         title: 'Retenção de Partículas Classe D',
@@ -52,174 +58,169 @@ const WATER_OPTIONS: WaterTypeConfig[] = [
   },
   {
     id: 'gelada',
-    name: 'Água Gelada',
+    name: 'Água Gelada por Compressor',
     shortLabel: 'Refrigeração R-134a',
     icon: Snowflake,
-    tagline: 'Refrigeração de alta potência por compressor para água fria constante',
+    tagline: 'Refrigeração de alta potência ecológica para água fria ininterrupta',
+    badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40',
+    glowColor: 'rgba(0, 229, 163, 0.4)',
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
     features: [
       {
-        title: 'Compressor com Gás R-134a',
-        badge: 'Compressor Ecológico',
-        description: 'Refrigeração mecânica potente e silenciosa com gás ecológico R-134a, garantindo água verdadeiramente gelada.',
+        title: 'Compressor Silencioso com Gás R-134a',
+        badge: 'Ecológico & Eficiente',
+        description: 'Garante água na temperatura ideal com baixo consumo de energia elétrica e sem agredir a camada de ozônio.',
       },
       {
-        title: 'Vazão Contínua de 45 a 60 L/h',
-        badge: 'Alto Rendimento',
-        description: 'Capacidade de atendimento constante de 45 a 60 litros por hora para atender toda a família ou equipes em empresas.',
+        title: 'Vazão Contínua de até 45 L/h',
+        badge: 'Alto Fluxo',
+        description: 'Atende com eficiência residências de famílias numerosas, escritórios, consultórios e estabelecimentos comerciais.',
       },
       {
-        title: 'Reservatório Interno Vedado',
-        badge: 'Vedação Higiênica',
-        description: 'Armazenamento seguro em reservatório atóxico livre de bisfenol, protegido contra qualquer contaminação externa.',
+        title: 'Reservatório Interno Higiênico',
+        badge: 'Proteção Total',
+        description: 'Tanque vedado que impede contaminação externa, mantendo a temperatura fria preservada por longos períodos.',
       },
       {
-        title: 'Baixo Consumo de Energia',
-        badge: 'Apenas 2,28 a 4,98 kWh/mês',
-        description: 'Alta eficiência energética comprovada em testes de fábrica, com consumo elétrico equivalente a uma pequena lâmpada LED.',
+        title: 'Termostato de Ajuste de Temperatura',
+        badge: 'Controle Térmico',
+        description: 'Permite regular a intensidade de resfriamento de acordo com a preferência pessoal e a estação do ano.',
       },
     ],
   },
   {
     id: 'ozonizada',
-    name: 'Água Ozonizada',
-    shortLabel: 'Ozônio Ativo O₃',
+    name: 'Água Ozonizada (O₃)',
+    shortLabel: 'Gás Ozônio Puro',
     icon: Zap,
-    tagline: 'Poder esterilizante do gás ozônio puro sob demanda no painel',
+    tagline: 'Higienização e esterilização profunda com tecnologia de oxigênio ativo',
+    badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-400/40',
+    glowColor: 'rgba(192, 132, 252, 0.4)',
+    gradient: 'from-purple-500/20 via-fuchsia-500/10 to-transparent',
     features: [
       {
-        title: 'Esterilização Ativa por Ozônio O₃',
-        badge: 'Gás Natural O₃',
-        description: 'Gás ozônio de ação bactericida e oxidante natural, eliminando microrganismos de forma rápida e segura.',
+        title: 'Concentração Controlada de 0,25 mg/L',
+        badge: 'Dose Segura',
+        description: 'Potente ação germicida e bactericida gerada sob demanda através de descarga de alta frequência no fluxo de água.',
       },
       {
-        title: 'Concentração Média de 0,25 mg/L',
-        badge: 'Dosagem Controlada',
-        description: 'Concentração padronizada e segura que age com alta eficácia sem produzir resíduos químicos secundários.',
+        title: 'Higienização Profunda de Alimentos',
+        badge: 'Esterilização',
+        description: 'Ideal para lavar frutas, verduras e legumes, auxiliando na redução de agrotóxicos e eliminando até 99,9% das bactérias.',
       },
       {
-        title: 'Higienização de Frutas e Alimentos',
-        badge: 'Uso Culinário',
-        description: 'Ideal para lavar saladas, frutas, verduras e carnes, auxiliando na remoção de impurezas e resíduos superficiais.',
+        title: 'Esterilização de Utensílios e Mamadeiras',
+        badge: 'Segurança Familiar',
+        description: 'Ação rápida na desinfecção de chupetas, mamadeiras, escovas e utensílios culinários sem deixar qualquer resíduo químico.',
       },
       {
-        title: 'Acionamento Prático Sob Demanda',
-        badge: 'Controle no Painel',
-        description: 'Sistema ativado por botão independente que gera a água ozonizada instantaneamente quando você necessitar.',
+        title: 'Degradação Natural em Oxigênio Puro',
+        badge: '100% Limpo',
+        description: 'Após agir na água, o ozônio se reconverte naturalmente em oxigênio puro (O₂), não deixando compostos residuais.',
       },
     ],
   },
 ];
 
 export const WaterCharacteristicsSection: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<WaterOption>('alcalina');
+  const [activeTab, setActiveTab] = useState<WaterOption>('alcalina');
 
-  const activeConfig = WATER_OPTIONS.find((opt) => opt.id === selectedOption) || WATER_OPTIONS[0];
+  const currentOption = WATER_OPTIONS.find((opt) => opt.id === activeTab) || WATER_OPTIONS[0];
 
-  const handleSelect = (option: WaterOption) => {
-    soundManager.playHudClick();
-    setSelectedOption(option);
+  const handleTabChange = (optId: WaterOption) => {
+    soundManager.playWaterRipple();
+    setActiveTab(optId);
   };
 
-  const whatsappMsg = `Olá! Gostaria de tirar dúvidas sobre os purificadores Top Life com foco em ${activeConfig.name}. Poderiam me orientar?`;
+  const whatsappMsg = `Olá! Gostaria de tirar dúvidas sobre os purificadores com ${currentOption.name}. Poderiam me atender?`;
 
   return (
     <section
       id="caracteristicas-agua"
-      className="relative py-12 sm:py-16 bg-[#F4F9FD] text-slate-900 overflow-hidden border-b border-sky-100"
+      className="relative py-20 sm:py-28 bg-[#000814] text-white overflow-hidden border-b border-white/10"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Cabeçalho compacto da seção */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white border border-sky-200 text-[#003B66] text-xs font-semibold uppercase tracking-wider mb-3 shadow-xs">
-            <Droplet className="w-3.5 h-3.5 text-[#0077CC]" />
-            <span>ESPECIFICAÇÕES TÉCNICAS DA ÁGUA</span>
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-purple-500/10 border border-white/15 text-cyan-300 text-[10px] sm:text-xs tracking-[0.25em] uppercase font-mono mb-3 backdrop-blur-xl">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span>PROPRIEDADES & BENEFÍCIOS PARA A SAÚDE</span>
           </div>
-
-          <h2 className="text-2xl sm:text-4xl font-black text-[#002D52] tracking-tight">
-            Características da Água Top Life
+          <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white">
+            Três Dimensões da Água Top Life
           </h2>
-          <p className="mt-2 text-slate-600 text-sm sm:text-base">
-            Selecione uma das 3 opções abaixo para conferir as 4 características técnicas comprovadas.
+          <p className="mt-3 text-slate-300 text-xs sm:text-sm md:text-base font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
+            Água alcalina com minerais essenciais, refrigeração contínua por compressor e esterilização profunda com ozônio ativo.
           </p>
         </div>
 
-        {/* 3 OPÇÕES PRINCIPAIS DE SELEÇÃO: ÁGUA ALCALINA, ÁGUA GELADA, ÁGUA OZONIZADA */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8">
+        {/* Tab Selector Buttons with Colorful Themes */}
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-14 sm:mb-16">
           {WATER_OPTIONS.map((opt) => {
             const Icon = opt.icon;
-            const isSelected = selectedOption === opt.id;
-
+            const isSelected = activeTab === opt.id;
             return (
               <button
                 key={opt.id}
-                onClick={() => handleSelect(opt.id)}
-                className={`flex items-center space-x-2.5 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer shadow-xs ${
+                onClick={() => handleTabChange(opt.id)}
+                className={`flex items-center space-x-3 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 cursor-pointer ${
                   isSelected
-                    ? 'bg-[#003B66] text-white shadow-md shadow-[#003B66]/20 scale-105 border border-[#0077CC]'
-                    : 'bg-white text-slate-700 border border-sky-200 hover:bg-sky-50/60 hover:border-sky-300'
+                    ? 'bg-gradient-to-r from-cyan-500 via-sky-500 to-emerald-500 text-[#000a17] font-bold shadow-[0_0_30px_rgba(0,240,255,0.5)] scale-105'
+                    : 'bg-white/[0.04] text-slate-300 border border-white/10 hover:bg-white/[0.08] hover:text-white'
                 }`}
-                aria-pressed={isSelected}
               >
-                <Icon className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-[#0077CC]'}`} />
+                <Icon className={`w-4 h-4 ${isSelected ? 'text-[#000a17]' : 'text-cyan-400'}`} />
                 <span>{opt.name}</span>
-                <span
-                  className={`text-[10px] px-2 py-0.5 rounded-full font-semibold hidden sm:inline ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-sky-100 text-[#003B66]'
-                  }`}
-                >
-                  {opt.shortLabel}
+                <span className={`text-[10px] font-mono ${isSelected ? 'text-[#000a17]/80' : 'text-slate-400'}`}>
+                  ({opt.shortLabel})
                 </span>
               </button>
             );
           })}
         </div>
 
-        {/* Tagline informativa da opção selecionada */}
-        <div className="text-center mb-6">
-          <p className="text-xs sm:text-sm font-semibold text-[#005B9A] italic">
-            "{activeConfig.tagline}"
-          </p>
-        </div>
-
-        {/* AS 4 CARACTERÍSTICAS DA OPÇÃO SELECIONADA */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {activeConfig.features.map((feat, idx) => (
+        {/* Feature Cards Grid for Active Water Option */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
+          {currentOption.features.map((feat, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-2xl bg-white border border-sky-100 shadow-xs hover:border-[#0077CC] hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className={`group p-6 sm:p-8 rounded-3xl bg-gradient-to-b ${currentOption.gradient} to-[#001026]/90 border border-white/10 hover:border-cyan-400/50 backdrop-blur-2xl shadow-xl transition-all duration-300`}
             >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-8 h-8 rounded-xl bg-sky-100 text-[#003B66] flex items-center justify-center font-black text-xs">
-                    0{idx + 1}
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#003B66] bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">
-                    {feat.badge}
-                  </span>
-                </div>
-
-                <h3 className="text-sm sm:text-base font-extrabold text-[#002D52] mb-2 leading-snug">
-                  {feat.title}
-                </h3>
-
-                <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                  {feat.description}
-                </p>
+              <div className="flex items-center justify-between mb-4">
+                <span className={`px-3 py-1 rounded-xl border text-[10px] font-mono uppercase tracking-wider font-semibold ${currentOption.badgeColor}`}>
+                  {feat.badge}
+                </span>
+                <span className="text-[11px] font-mono text-slate-400">
+                  0{idx + 1}
+                </span>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center space-x-1.5 text-emerald-600 text-[11px] font-semibold">
-                <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                <span>Especificação Confirmada</span>
-              </div>
+              <h3 className="text-xl font-light text-white tracking-tight mb-2.5">
+                {feat.title}
+              </h3>
+
+              <p className="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+                {feat.description}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Rodapé da seção: Chamada rápida de WhatsApp */}
-        <div className="mt-8 pt-6 border-t border-sky-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-2 text-xs text-slate-600 text-center sm:text-left">
-            <ShieldCheck className="w-4 h-4 text-[#0077CC] shrink-0" />
-            <span>Todas as especificações técnicas seguem os padrões de qualidade e documentação Top Life.</span>
+        {/* Bottom Banner with WhatsApp Consultation */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#00142e] to-[#001838] border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-6 backdrop-blur-xl shadow-xl">
+          <div className="flex items-center space-x-4">
+            <div className="w-13 h-13 rounded-2xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center shrink-0 text-cyan-300 shadow-[0_0_20px_rgba(0,210,255,0.3)]">
+              <ShieldCheck className="w-7 h-7" />
+            </div>
+            <div>
+              <h4 className="text-base sm:text-lg font-light text-white">
+                Qual tecnologia de purificação melhor atende sua rotina?
+              </h4>
+              <p className="text-xs text-slate-300 font-light mt-0.5">
+                Nossos consultores tiram suas dúvidas sobre pH alcalino, ozônio culinário e modelos de compressor.
+              </p>
+            </div>
           </div>
 
           <a
@@ -227,13 +228,14 @@ export const WaterCharacteristicsSection: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => soundManager.playHudClick()}
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-sm hover:shadow-md transition-all"
+            className="inline-flex items-center space-x-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-950/40 transition-all shrink-0 border border-white/20"
           >
             <MessageCircle className="w-4 h-4 fill-white" />
-            <span>Consultar Modelos com {activeConfig.name}</span>
+            <span>Falar com Especialista</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
+
       </div>
     </section>
   );

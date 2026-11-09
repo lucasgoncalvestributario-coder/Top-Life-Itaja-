@@ -1,6 +1,6 @@
 import { PurifierModel, ProductCategory } from '../types';
 
-export const PHONE_NUMBER = '5511999998888';
+export const PHONE_NUMBER = '554791430843';
 
 export const createWhatsAppUrl = (message: string) => {
   return `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -8,7 +8,7 @@ export const createWhatsAppUrl = (message: string) => {
 
 export const createProductWhatsAppUrl = (productName: string) => {
   return createWhatsAppUrl(
-    `Olá! Gostaria de saber mais sobre o ${productName}. Poderiam me informar a disponibilidade e o preço?`
+    `Olá! Gostaria de falar com um especialista sobre o modelo ${productName}.`
   );
 };
 
@@ -150,7 +150,6 @@ export const PURIFIER_MODELS: PurifierModel[] = [
     image: '/images/products/Whats-App-Image-2026-10-12-at-11-16-51.jpg',
     images: [
       '/images/products/Whats-App-Image-2026-10-12-at-11-16-51.jpg',
-      '/images/products/Whats-App-Image-2026-10-12-at-11-16-35.jpg',
       '/images/products/Whats-App-Image-2026-10-12-at-11-16-25.jpg',
     ],
     colors: [
@@ -162,7 +161,7 @@ export const PURIFIER_MODELS: PurifierModel[] = [
       {
         name: 'Prata',
         hex: '#CBD5E1',
-        image: '/images/products/Whats-App-Image-2026-10-12-at-11-16-35.jpg',
+        image: '/images/products/Whats-App-Image-2026-10-12-at-11-16-25.jpg',
       },
       {
         name: 'Preto',
@@ -220,7 +219,6 @@ export const PURIFIER_MODELS: PurifierModel[] = [
       '/images/products/Whats-App-Image-2026-10-12-at-11-22-20.jpg',
       '/images/products/Whats-App-Image-2026-10-12-at-11-22-09.jpg',
       '/images/products/Whats-App-Image-2026-10-12-at-11-21-59.jpg',
-      '/images/products/Whats-App-Image-2026-10-12-at-11-21-49.jpg',
       '/images/products/Whats-App-Image-2026-10-12-at-11-21-34.jpg',
       '/images/products/Whats-App-Image-2026-10-12-at-11-21-21.jpg',
     ],
@@ -243,7 +241,7 @@ export const PURIFIER_MODELS: PurifierModel[] = [
       {
         name: 'Vermelho',
         hex: '#DC2626',
-        image: '/images/products/Whats-App-Image-2026-10-12-at-11-21-49.jpg',
+        image: '/images/products/Whats-App-Image-2026-10-12-at-11-21-34.jpg',
       },
     ],
     features: [
@@ -354,8 +352,8 @@ export const PURIFIER_MODELS: PurifierModel[] = [
       'Bebedouro/purificador de coluna com duas alturas de utilização em aço inox/Kromanox. Possui bico ergonômico acessível para cadeirantes e pessoas de diferentes estaturas. Indicado para empresas, clínicas e escolas de até 60 pessoas.',
     priceConfirmed: false,
     price: 'Consulte o preço',
-    image: '/images/products/Whats-App-Image-2026-10-12-at-11-38-02.jpg',
-    images: ['/images/products/Whats-App-Image-2026-10-12-at-11-38-02.jpg'],
+    image: '/images/products/Whats-App-Image-2026-10-12-at-11-41-23-1.jpg',
+    images: ['/images/products/Whats-App-Image-2026-10-12-at-11-41-23-1.jpg'],
     features: [
       'Duas torneiras tipo jato em alturas diferentes',
       'Acessibilidade garantida para cadeirantes',

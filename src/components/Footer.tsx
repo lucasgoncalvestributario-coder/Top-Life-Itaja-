@@ -1,13 +1,20 @@
 import React from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Instagram, Facebook, Linkedin, Youtube, ShieldCheck } from 'lucide-react';
+import { MapPin, Phone, Mail, Instagram, Facebook, Linkedin, Youtube, ShieldCheck } from 'lucide-react';
 import { createWhatsAppUrl } from '../data/purifiers';
 import { soundManager } from '../utils/soundEffects';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const Footer: React.FC = () => {
   const whatsappMsg = 'Olá! Gostaria de entrar em contato com a equipe da Top Life Purificadores.';
 
   return (
     <footer className="relative bg-[#001830] text-slate-300 pt-16 pb-12 overflow-hidden border-t border-[#002D52]">
+      {/* Background Texture Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-10 pointer-events-none mix-blend-screen"
+        style={{ backgroundImage: `url('/images/backgrounds/bg-smoke-blue.jpg')` }}
+      />
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
           
@@ -24,7 +31,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Especialista em purificadores de água de alta performance, filtragem avançada, água gelada por compressor, ionização alcalina e ozonização para sua família e empresa.
+              Especialista em purificadores de água de alta performance, filtragem avançada por carvão ativado, eficiência bacteriológica, refrigeração por compressor e ionização alcalina para sua família e empresa.
             </p>
 
             {/* Social Icons */}
@@ -73,10 +80,9 @@ export const Footer: React.FC = () => {
             <span className="block text-white font-bold uppercase tracking-wider mb-2">Navegação</span>
             <ul className="space-y-2.5">
               <li><a href="#hero" className="hover:text-sky-300 transition-colors">Início</a></li>
-              <li><a href="#tecnologias" className="hover:text-sky-300 transition-colors">Tecnologia</a></li>
-              <li><a href="#caracteristicas-agua" className="hover:text-sky-300 transition-colors">Tipos de Água</a></li>
+              <li><a href="#carvao-ativado" className="hover:text-sky-300 transition-colors">Carvão Ativado</a></li>
+              <li><a href="#eficiencia-bacteriologica" className="hover:text-sky-300 transition-colors">Eficiência Bacteriológica</a></li>
               <li><a href="#modelos" className="hover:text-sky-300 transition-colors">Purificadores & Refis</a></li>
-              <li><a href="#beneficios" className="hover:text-sky-300 transition-colors">Vantagens</a></li>
               <li><a href="#contato" className="hover:text-sky-300 transition-colors">Contato</a></li>
             </ul>
           </div>
@@ -92,7 +98,7 @@ export const Footer: React.FC = () => {
 
             <div className="flex items-center space-x-2.5">
               <Phone className="w-4 h-4 text-sky-400 shrink-0" />
-              <span>(11) 99999-8888</span>
+              <span>(47) 9143-0843</span>
             </div>
 
             <div className="flex items-center space-x-2.5">
@@ -108,8 +114,8 @@ export const Footer: React.FC = () => {
                 onClick={() => soundManager.playHudClick()}
                 className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md shadow-emerald-950/20"
               >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Conversar no WhatsApp</span>
+                <WhatsAppIcon className="w-4 h-4 fill-white" />
+                <span>Falar com especialista</span>
               </a>
             </div>
           </div>

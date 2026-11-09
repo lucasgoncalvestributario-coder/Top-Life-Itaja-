@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { createWhatsAppUrl } from '../data/purifiers';
 import { soundManager } from '../utils/soundEffects';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const FloatingWhatsApp: React.FC = () => {
   const [isOpenTooltip, setIsOpenTooltip] = useState(true);
@@ -41,7 +42,7 @@ export const FloatingWhatsApp: React.FC = () => {
         aria-label="Falar no WhatsApp"
       >
         <div className="absolute inset-0 rounded-full border-2 border-emerald-400 opacity-60 animate-ping" />
-        <MessageCircle className="w-7 h-7 fill-white group-hover:rotate-12 transition-transform duration-300" />
+        <WhatsAppIcon className="w-7 h-7 fill-white group-hover:rotate-12 transition-transform duration-300" />
       </a>
     </div>
   );

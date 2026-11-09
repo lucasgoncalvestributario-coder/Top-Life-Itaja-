@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Preloader } from './components/Preloader';
 import { Header } from './components/Header';
-import { HeroWidescreenBillboard } from './components/HeroWidescreenBillboard';
-import { SmartTechInteractive } from './components/SmartTechInteractive';
-import { WaterCharacteristicsSection } from './components/WaterCharacteristicsSection';
+import { MainBannerHero } from './components/MainBannerHero';
+import { BrandTicker } from './components/BrandTicker';
+import { ActivatedCarbonSection } from './components/ActivatedCarbonSection';
+import { BacteriologicalEfficiencySection } from './components/BacteriologicalEfficiencySection';
 import { ProductCatalog } from './components/ProductCatalog';
-import { BenefitsSection } from './components/BenefitsSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
+
   const handleNavigate = (sectionId: string) => {
     const el = document.getElementById(sectionId);
     if (el) {
@@ -18,33 +21,35 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[#0077CC] selection:text-white">
-      {/* 1. Header Bar em Azul Profundo Oficial com Logotipo Flutuante e Destaque */}
+    <div className="min-h-screen bg-[#001830] text-slate-100 font-sans selection:bg-[#0077CC] selection:text-white">
+      {/* 1. Preloader Screen: Logo Oficial + Barra de Progresso Fina + Pré-carregamento Real de Imagens */}
+      {!isReady && <Preloader onLoaded={() => setIsReady(true)} />}
+
+      {/* 2. Header Oficial: Acabamento em Resina Branca com Veios Fluidos Azuis e Pretos */}
       <Header onNavigate={handleNavigate} />
 
-      {/* 2. Hero Widescreen Showcase com Efeito de Água Delicado e Contínuo */}
-      <HeroWidescreenBillboard />
+      {/* 3. Banner Principal: 2 Colunas (Esquerda: Tipografia TOP LIFE com Iluminação em Luz; Direita: Quadrado 1:1 com Carrossel de Fotos) */}
+      <MainBannerHero />
 
-      {/* 3. Seções Principais - Renderização Imediata e Direta Sem Atrasos */}
-      {/* Seção – Tecnologias de Filtragem e Engenharia */}
-      <SmartTechInteractive />
+      {/* 4. Faixa de Slogans em Movimento Contínuo com Mini Logo Top Life */}
+      <BrandTicker />
 
-      {/* Seção – Características da Água (Alcalina, Gelada, Ozonizada) */}
-      <WaterCharacteristicsSection />
+      {/* 5. Destaque Especial: Carvão Ativado Direto com Fotografia Real e Botão Único */}
+      <ActivatedCarbonSection />
 
-      {/* Seção – Catálogo Completo Top Life (16 Produtos / 9 Categorias) */}
+      {/* 6. Destaque Especial: Eficiência Bacteriológica (Visual Tecnológico Escuro) & Comparação Cinematográfica */}
+      <BacteriologicalEfficiencySection />
+
+      {/* 7. Catálogo: Purificadores | Refis | Garrafas (Cards Compactos, Cores Estáticas Não Clicáveis e Botão Falar com Especialista) */}
       <ProductCatalog />
 
-      {/* Seção – Vantagens e Benefícios Comprovados */}
-      <BenefitsSection />
-
-      {/* Seção – CTA Final de Atendimento */}
+      {/* 8. CTA Final: "A qualidade da água começa com a escolha certa" sem Fotos e Foco Tipográfico */}
       <FinalCtaSection />
 
-      {/* Rodapé Oficial em Azul Noturno com Logotipo Livre e Destaque */}
+      {/* 9. Rodapé Oficial Completo */}
       <Footer />
 
-      {/* Botão Flutuante de WhatsApp */}
+      {/* 10. Botão Flutuante de WhatsApp Oficial */}
       <FloatingWhatsApp />
     </div>
   );
